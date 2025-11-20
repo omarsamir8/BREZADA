@@ -31,8 +31,8 @@ function FeaturedProducts(){
             >
                 <SwiperSlide >
                     <div style={{margin:"0",padding:"20px",borderRadius:"10px",display:"flex",justifyContent:"space-between"}}>
-                          <Product img="./Assets/p-1.jpg" status="On Sale!" olPrice="50" currentPrice="39.00" name="Fresh Fruit ,Pannana" brand="Common Good"/>
-                          <Product img="./Assets/p-2.jpg" status="On Sale!" olPrice="50" currentPrice="39.00" name="Fresh Fruit ,Pannana" brand="Common Good"/>
+                          <Product img="./Assets/p-5.jpg" status="On Sale!" olPrice="50" currentPrice="39.00" name="Fresh Fruit ,Pannana" brand="Common Good"/>
+                          <Product img="./Assets/p-6.jpg" status="On Sale!" olPrice="50" currentPrice="39.00" name="Fresh Fruit ,Pannana" brand="Common Good"/>
                           <Product img="./Assets/p-3.jpg" status="On Sale!" olPrice="50" currentPrice="39.00" name="Fresh Fruit ,Pannana" brand="Common Good"/>
                           <Product img="./Assets/p-4.jpg" status="On Sale!" olPrice="50" currentPrice="39.00" name="Fresh Fruit ,Pannana" brand="Common Good"/>
                     </div> 
@@ -55,7 +55,7 @@ function FeaturedProducts(){
                 </SwiperSlide>  
             </Swiper>
             </div>
-            <div className='responsivecursal'>
+            <div style={{display:"none"}} className='responsivecursal'>
                 <Swiper
                                         spaceBetween={50}
                                         slidesPerView={slidesPerView} // ✅ تحديث القيمة ديناميكيًا
