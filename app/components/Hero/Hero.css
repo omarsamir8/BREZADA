@@ -1,0 +1,71 @@
+.Hero{
+    background-image: url('../../../public/Assets/slider-2.jpg');
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px 5%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80vh;
+    align-items: center;
+}
+.Hero h2{
+    width: 39%;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Cairo, Arial, Helvetica, sans-serif;
+}
+.Hero p{
+    color: gray;
+    width: 50%;
+}
+.Hero button{
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color:#4b8106 ;
+    color: white;
+    transition: .3;
+}
+.Hero button:hover{
+    background-color: black;
+    color: white;
+}
+.Hero img{
+    background: transparent;
+    mix-blend-mode: multiply;
+
+}
+@media (max-width: 450px) {
+    .Hero{
+        flex-direction: column;
+         background-position: 55% 50%;
+         height: 80vh;
+         align-items: center;
+         justify-content: center;
+    }
+    .Hero h2{
+        width: 100%;
+    }
+    .Hero p{
+        width: 100%;
+    }
+}
+@media (min-width: 450px) and (max-width: 750px) {
+    .Hero{
+        flex-direction: column;
+         background-position: 55% 50%;
+         height: 60vh;
+         align-items: center;
+         justify-content: center;
+    }
+    .Hero h2{
+        width: 70%;
+    }
+    .Hero p{
+        width: 70%;
+    }
+}

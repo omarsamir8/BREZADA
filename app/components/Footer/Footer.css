@@ -1,0 +1,108 @@
+.Foooter{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+   /* background: radial-gradient(circle, #d1e6f8 0%, #ffffff 100%) !important; */
+    background-color: black;
+    color: white;
+    padding: 20px 5%;
+}
+.Footer{ 
+    
+    display: flex;
+    justify-content: space-between;
+    
+}
+.Footer div{
+    width: 33%;
+}
+.footertitle ,.footerContact ,.footerMenue{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footertitle h2{
+  font-size: 24px;
+  font-weight: bold;
+  display: inline-block;
+  background: linear-gradient(to bottom, transparent 50%, greenyellow 50%);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 125px;
+  letter-spacing: 3;
+}
+.footertitle p{
+    color: gray;
+    width: 80%;
+}
+.footerMenue ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* كل صف فيه عنصرين */
+  gap: 10px; /* مسافة بين العناصر (اختياري) */
+  list-style: none; /* لو مش عايز نقط القايمة */
+  padding: 0;
+  margin: 0;
+}
+.footerMenue ul li{
+    cursor: pointer;
+    transition: .3s;
+}
+.footerMenue ul li:hover{
+    color:yellowgreen ;
+}
+.footerContact ul{
+  list-style: none; /* لو مش عايز نقط القايمة */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footerContact ul li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+.footerContact ul li:hover{
+    color: yellowgreen;
+}
+.square{
+    width: 30px !important;
+    height: 30px !important;
+    background-color: yellowgreen;
+}
+.footercopyright{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footercopyright p{
+    margin: 0;
+}
+.footercopyright ul{
+  list-style: none; /* لو مش عايز نقط القايمة */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.footercopyright ul li{
+    transition: .3s;
+    cursor: pointer;
+}
+.footercopyright ul li:hover{
+    color: yellowgreen;
+}
+@media (max-width: 500px){
+    .Footer{
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .Footer div{
+        width: 100%;
+    }
+    .footercopyright{
+        flex-direction: column;
+    }
+}

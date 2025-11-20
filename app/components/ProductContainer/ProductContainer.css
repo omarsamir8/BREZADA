@@ -1,0 +1,17 @@
+.ProductContainer{
+    padding: 20px 5%;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.P-Container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.ProductContainertitle{
+    padding: 20px;
+    text-align: center;
+    font-family: Cairo, Arial, Helvetica, sans-serif;
+}

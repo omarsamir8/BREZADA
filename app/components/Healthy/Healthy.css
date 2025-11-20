@@ -1,0 +1,36 @@
+.HealthyHero{
+    padding:3% 5% 5% 5%; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    /* background-image: url('../../../public/Assets/blur.png'); */
+    background: radial-gradient(circle, #d2e6f8 0%, #ffffff 100%) !important;
+
+}
+.healthyheroheader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.healthyheroheader h3 {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+}
+.healthyheroheader p{
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    color: gray;
+}
+.HealthyHero h2{
+    font-size: 50px;
+    font-weight: bold;
+}
+.HealthyHero p{
+  color: gray;
+  font-size: 18px;
+}

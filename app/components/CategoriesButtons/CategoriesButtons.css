@@ -1,0 +1,27 @@
+.CategoriesButtons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.CategoriesButtons button{
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: #eeeded !important;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.CategoriesButtons .selectedbutton{
+    background-color: #4b8106 !important;
+    color: white;
+}
+.selectedprodcts{
+    padding: 30px 5%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}

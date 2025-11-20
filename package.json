@@ -1,0 +1,34 @@
+{
+  "name": "packagestore",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@next/swc-win32-x64-msvc": "^16.0.1",
+    "axios": "^1.13.2",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "bootstrap": "^5.3.8",
+    "formidable": "^3.5.4",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.3",
+    "next": "16.0.1",
+    "nodemailer": "^7.0.10",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-icons": "^5.5.0",
+    "react-toastify": "^11.0.5",
+    "sweetalert2": "^11.26.3",
+    "swiper": "^12.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^9",
+    "eslint-config-next": "16.0.1"
+  }
+}

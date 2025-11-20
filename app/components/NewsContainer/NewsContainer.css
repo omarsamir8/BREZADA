@@ -1,0 +1,12 @@
+.NewsContainer{
+    padding: 10px 5% 40px 5%;
+    
+    
+}
+.NewsTitle{
+    font-size: 28px;
+    text-align: center;
+    font-family: Cairo, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    margin-top: 20px;
+}

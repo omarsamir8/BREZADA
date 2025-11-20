@@ -1,0 +1,47 @@
+.regForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #8bfc81 0%, #ffffff 100%) !important;
+    /* background-image:url('../../public/Assets/blur.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: 100% 100%; */
+}
+.regForm form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    gap: 20px;
+    width: inherit;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.regForm form input,.regForm form select{
+    width: 50%;
+    padding: 10px;
+}
+.regForm form button{
+    width: 50%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: greenyellow;
+    border: none;
+    outline: none;
+}
+.regForm form button:hover{
+    background-color: black;
+}
+
+@media (max-width: 600px){
+    .regForm form input,.regForm form select{
+        width: 90%;
+    }
+    .regForm form button{
+        width: 90%;
+    }
+}

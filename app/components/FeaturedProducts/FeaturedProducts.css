@@ -1,0 +1,27 @@
+.FeaturedProducts{
+    padding: 20px 5%;
+    background-image: url('../../../public/Assets/cursol3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.responsivecursal{
+    display: none;
+}
+.notresponsive{
+    display: block;
+}
+@media (max-width: 450px) {
+    .responsivecursal{
+        display: block !important;
+    }
+
+}
+@media (min-width: 750px) {
+    .responsivecursal{
+        display: block !important;
+    }
+    .FeaturedProducts .notresponsive{
+        display: block !important;
+    }
+}

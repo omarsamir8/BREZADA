@@ -1,0 +1,55 @@
+.productform{
+    padding: 20px 5%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.productform h2{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+.productform form{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.productform form input{
+    width: 49%;
+    background-color: #f7f7f7 !important;
+}
+.productform form textarea{
+    width: 100%;
+    background-color: #f7f7f7 !important;
+}
+.productform form select{
+    width: 49%;
+    background-color: #f7f7f7 !important;
+}
+.productform form button{
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #4b8106;
+}
+.productform table{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 500;
+}
+.productform table img{
+    width: 60px;
+    height: 60px;
+}
+.productform table button{
+     border: none;
+    outline: none;
+    background-color: #4b8106;
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+.productform table button:hover{
+    background-color: black;
+}

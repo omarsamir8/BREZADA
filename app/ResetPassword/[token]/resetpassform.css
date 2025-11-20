@@ -1,0 +1,39 @@
+.resetpassform{
+    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    height: 100vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background: radial-gradient(circle, #8bfc81 0%, #ffffff 100%) !important;
+}
+.resetpassform form{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.resetpassform form button{
+    width: 50%;
+    transition: .3s;
+    background-color: greenyellow;
+    border: none;
+    outline: none;
+}
+.resetpassform form button:hover{
+    background-color: black;
+    border: none;
+}
+@media (max-width: 600px){
+    .resetpassform form input{
+        width: 100% !important;
+    }
+    .resetpassform form button{
+        width: 100%;
+    }
+       
+    
+}
