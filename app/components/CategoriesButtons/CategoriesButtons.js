@@ -60,24 +60,24 @@ function CategoriesButtons() {
             >
                 Beauty Products
             </button>
-            <button 
+            {/* <button 
                 onClick={() => setSelected("Spices Products")}
                 className={selected === "Spices Products" ? "selectedbutton" : ""}
             >
                 Spices Products
-            </button>
+            </button> */}
             <button 
                 onClick={() => setSelected("Natural Drinks")}
                 className={selected === "Natural Drinks" ? "selectedbutton" : ""}
             >
                 Natural Drinks
             </button>
-            <button 
+            {/* <button 
                 onClick={() => setSelected("Snacks & Nuts")}
                 className={selected === "Snacks & Nuts" ? "selectedbutton" : ""}
             >
                 Snacks & Nuts
-            </button>
+            </button> */}
             <button 
                 onClick={() => setSelected("Natural oils")}
                 className={selected === "Natural oils" ? "selectedbutton" : ""}
