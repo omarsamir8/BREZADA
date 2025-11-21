@@ -90,8 +90,13 @@ function ShopAll(){
                             {/* <li onClick={() => setSelectedBrand("Common Good")}>
                                 <input type="checkbox"/> Common Good
                             </li> */}
-                            <li onClick={() => setSelectedBrand("Brezda")}>
-                                <input type="checkbox"/> Brezda
+                            <li>
+                            <input 
+                                type="checkbox" 
+                                checked={selectedBrand === "Brezda"}
+                                onChange={() => setSelectedBrand(selectedBrand === "Brezda" ? "" : "Brezda")}
+                            />
+                            Brezda
                             </li>
                             {/* <li onClick={() => setSelectedBrand("EL Fursan")}>
                                 <input type="checkbox"/> EL Fursan
@@ -103,21 +108,38 @@ function ShopAll(){
                     <div className='brand'>
                         <h3>Category</h3>
                         <ul>
-                            <li onClick={() => setSelected("Beauty Products")}>
-                                <input type="checkbox"/> Beauty Products
+                            <li>
+                            <input 
+                                type="checkbox" 
+                                checked={selected === "Beauty Products"}
+                                onChange={() => setSelected(selected === "Beauty Products" ? "" : "Beauty Products")}
+                            />
+                            Beauty Products
                             </li>
+
+                            <li>
+                            <input 
+                                type="checkbox" 
+                                checked={selected === "Natural Drinks"}
+                                onChange={() => setSelected(selected === "Natural Drinks" ? "" : "Natural Drinks")}
+                            />
+                            Natural Drinks
+                            </li>
+
+                            <li>
+                            <input 
+                                type="checkbox" 
+                                checked={selected === "Natural oils"}
+                                onChange={() => setSelected(selected === "Natural oils" ? "" : "Natural oils")}
+                            />
+                            Natural Oils
+                            </li>                        
                             {/* <li onClick={() => setSelected("Spices Products")}>
                                 <input type="checkbox"/> Spices Products
-                            </li> */}
-                            <li onClick={() => setSelected("Natural Drinks")}>
-                                <input type="checkbox"/> Natural Drinks
-                            </li>
+                            </li> */}              
                             {/* <li onClick={() => setSelected("Snacks & Nuts")}>
                                 <input type="checkbox"/> Snacks & Nuts
                             </li> */}
-                            <li onClick={() => setSelected("Natural oils")}>
-                                <input type="checkbox"/> Natural Oils
-                            </li>
                         </ul>
                     </div>
 
