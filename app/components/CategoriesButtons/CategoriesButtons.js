@@ -84,6 +84,12 @@ function CategoriesButtons() {
             >
                 Natural Oils
             </button>
+            <button 
+                onClick={() => setSelected("Honey")}
+                className={selected === "Honey" ? "selectedbutton" : ""}
+            >
+                Honey
+            </button>
        </div>
         <div className="selectedprodcts">
             {filteredProducts.map((pro, index) => (

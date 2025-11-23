@@ -56,7 +56,7 @@ function Navbar() {
           }}
           className="logoContainer"
         >
-          <img src="/Assets/logoo.jpg" alt="logoImage" width={80} />
+          <img src="/Assets/brezadaLogo.jpeg" alt="logoImage"  />
           <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
             <h2 style={{ margin: "0" }}>BREZADA</h2>
             <p style={{ margin: "0", padding: "0", color: "gray" }}>Organic Store</p>

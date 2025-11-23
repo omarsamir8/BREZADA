@@ -3,15 +3,30 @@ import { FaStar } from 'react-icons/fa';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function Product(props){
+
+    // منع فتح المودل عند الضغط على زر Add To Cart
+    const handleAddToCart = (e) => {
+        e.stopPropagation();
+        props.addToCart({
+            id: props.id,
+            img: props.img,
+            name: props.name,
+            brand: props.brand,
+            price: props.currentPrice
+        });
+    };
+
     return(
         <>
-        <div className="product">
+        {/* اضغط على الكارد → يعرض التفاصيل في المودل */}
+        <div className="product" onClick={() => props.onSelect(props)}>
+
             <img src={props.img} alt="" />
             <p>{props.brand}</p>
             <h3>{props.name}</h3>
 
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <h2>${props.currentPrice}</h2>
+                <h2>L£{props.currentPrice}</h2>
                 <div>
                     {[...Array(5)].map((_, i) => (
                         <FaStar style={{color:"gold"}} key={i} className="star-icon" />
@@ -19,15 +34,10 @@ function Product(props){
                 </div>
             </div>
 
-            <p><del>${props.olPrice}</del></p>
+            <p><del>L£{props.olPrice}</del></p>
 
-            <button onClick={() => props.addToCart({
-                id: props.id,
-                img: props.img,
-                name: props.name,
-                brand: props.brand,
-                price: props.currentPrice
-            })}>
+            {/* زر السلة مش هيفتح المودل */}
+            <button onClick={handleAddToCart}>
                 <i className="fa-solid fa-cart-shopping"></i> Add To Cart
             </button>
 

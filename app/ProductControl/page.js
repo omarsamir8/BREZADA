@@ -117,6 +117,7 @@ export default function ProductsPage() {
             <option value="Beauty Products">Beauty Products</option>
             <option value="Spices Products">Spices Products</option>
             <option value="Natural oils">Natural oils</option>
+            <option value="Honey">Honey</option>
             <option value="Natural Drinks">Natural Drinks</option>
             <option value="Snacks & Nuts">Snacks & Nuts</option>
         </select>

@@ -10,6 +10,7 @@ function ShopAll(){
     const [selected, setSelected] = useState(""); // category
     const [selectedBrand, setSelectedBrand] = useState(""); // brand
     const [selectedPrice, setSelectedPrice] = useState(1000); // price filter
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     const getProducts = async () => {
         try {
@@ -134,6 +135,14 @@ function ShopAll(){
                             />
                             Natural Oils
                             </li>                        
+                            <li>
+                            <input 
+                                type="checkbox" 
+                                checked={selected === "Honey"}
+                                onChange={() => setSelected(selected === "Honey" ? "" : "Honey")}
+                            />
+                            Honey
+                            </li>                        
                             {/* <li onClick={() => setSelected("Spices Products")}>
                                 <input type="checkbox"/> Spices Products
                             </li> */}              
@@ -167,9 +176,9 @@ function ShopAll(){
                 </div>
 
                 {/* Products List */}
-                <div className='prductsSide'>
+                <div className='prductsSide' data-bs-toggle="modal" data-bs-target="#exampleModal">
                     {filteredProducts.map((pro, index) => (
-                        <Product 
+                        <Product
                             key={index}
                             id={pro._id}
                             img={pro.image}
@@ -178,10 +187,93 @@ function ShopAll(){
                             currentPrice={pro.price}
                             name={pro.name}
                             brand={pro.brand}
-                            addToCart={addToCart}   // ← هنا
+                            addToCart={addToCart}
+                            onSelect={(product) => setSelectedProduct(product)}
                         />
+
                     ))}
                 </div>
+            </div>
+            <div className="modal-body">
+                {selectedProduct ? (
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "15px",
+                    }}>
+
+                        {/* صورة المنتج */}
+                        <img 
+                            src={selectedProduct.image} 
+                            alt=""
+                            style={{
+                                width: "100%",
+                                borderRadius: "12px",
+                                objectFit: "cover",
+                                maxHeight: "280px",
+                                boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+                            }}
+                        />
+
+                        {/* الاسم */}
+                        <h2 style={{
+                            fontSize: "22px",
+                            fontWeight: "bold",
+                            margin: 0
+                        }}>
+                            {selectedProduct.name}
+                        </h2>
+
+                        {/* البراند */}
+                        <h4 style={{
+                            fontSize: "16px",
+                            color: "#777",
+                            margin: 0
+                        }}>
+                            Brand: 
+                            <span style={{color: "#000", fontWeight: "bold"}}> {selectedProduct.brand}</span>
+                        </h4>
+
+                        {/* السعر */}
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px"
+                        }}>
+                            <h3 style={{
+                                margin: 0,
+                                fontWeight: "bold",
+                                color: "#28a745"
+                            }}>
+                                ${selectedProduct.price}
+                            </h3>
+
+                            {selectedProduct.priceBeforeSale && (
+                                <p style={{
+                                    textDecoration: "line-through",
+                                    color: "red",
+                                    margin: 0,
+                                    fontSize: "14px"
+                                }}>
+                                    ${selectedProduct.priceBeforeSale}
+                                </p>
+                            )}
+                        </div>
+
+                        {/* الوصف */}
+                        <p style={{
+                            fontSize: "15px",
+                            lineHeight: "1.6",
+                            color: "#444",
+                            marginTop: "5px"
+                        }}>
+                            {selectedProduct.description}
+                        </p>
+
+                    </div>
+                ) : (
+                    <p style={{fontWeight:"bold"}}>No product selected</p>
+                )}
             </div>
 
         </div>

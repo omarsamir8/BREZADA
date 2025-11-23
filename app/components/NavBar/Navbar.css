@@ -79,6 +79,8 @@
 }
 .logoContainer img{
     border-radius: 50%;
+    height: 80px;
+    width: 80px;
 }
 .navbar{
   padding: 10px 5%;
