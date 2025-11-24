@@ -109,7 +109,7 @@ export default function CartPage() {
               </div>
             </div>
 
-            <div className="price">₹{item.price}</div>
+            <div className="price">L£{item.price}</div>
 
             <div className="quantity-box">
               <button onClick={() => updateQty(item.id, "dec")}>-</button>
@@ -117,7 +117,7 @@ export default function CartPage() {
               <button onClick={() => updateQty(item.id, "inc")}>+</button>
             </div>
 
-            <div className="total">₹{(item.price * item.qty).toFixed(2)}</div>
+            <div className="total">L£{(item.price * item.qty).toFixed(2)}</div>
             <button className="remove-btn" onClick={() => removeItem(item.id)}>
               ×
             </button>
@@ -128,7 +128,7 @@ export default function CartPage() {
       <div className="summary-box">
         <div className="summary-row grand-total">
           <span>Grand total:</span>
-          <span>₹{grandTotal.toFixed(2)}</span>
+          <span>L£{grandTotal.toFixed(2)}</span>
         </div>
 
         <button className="checkout-btn" onClick={() => setOpenModal(true)}>

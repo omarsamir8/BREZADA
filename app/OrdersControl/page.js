@@ -127,7 +127,7 @@ function OrdersControls() {
                     ))}
                   </td>
 
-                  <td className="border p-2">${order.totalAmount}</td>
+                  <td className="border p-2">L£{order.totalAmount}</td>
                   <td className="border p-2">{order.paymentMethod}</td>
 
                   <td className="border p-2">{order.status}</td>
