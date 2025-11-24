@@ -101,7 +101,7 @@ export default function CartPage() {
         {cart.map((item) => (
           <div className="cart-row" key={item.id}>
             <div className="cart-product">
-              <Image src={item.img} width={80} height={80} alt={item.name} />
+              <img src={item.img} width={80} height={80} alt={item.name} />
 
               <div className="product-info">
                 <p className="brand">{item.brand}</p>
@@ -178,7 +178,7 @@ export default function CartPage() {
               }
             >
               <option value="cash">Cash</option>
-              <option value="card">Visa / Card</option>
+              {/* <option value="card">Visa / Card</option> */}
             </select>
 
             <button className="confirm-btn" onClick={submitOrder}>

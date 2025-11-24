@@ -146,6 +146,9 @@ function ShopAll(){
                             {/* <li onClick={() => setSelected("Spices Products")}>
                                 <input type="checkbox"/> Spices Products
                             </li> */}              
+                            <li onClick={() => setSelected("FeaturedProducts")}>
+                                <input type="checkbox"/> Featured Products
+                            </li>              
                             {/* <li onClick={() => setSelected("Snacks & Nuts")}>
                                 <input type="checkbox"/> Snacks & Nuts
                             </li> */}

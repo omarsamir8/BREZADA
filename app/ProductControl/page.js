@@ -120,6 +120,7 @@ export default function ProductsPage() {
             <option value="Honey">Honey</option>
             <option value="Natural Drinks">Natural Drinks</option>
             {/* <option value="Snacks & Nuts">Snacks & Nuts</option> */}
+            <option value="FeaturedProducts">Featured Products</option>
         </select>
         <input type="file" accept="image/*" onChange={e => setFormData({...formData, image:e.target.files[0]})} className="form-control" />
         <textarea placeholder="Description" value={formData.description} onChange={e => setFormData({...formData, description:e.target.value})} rows={1} className="form-control" />
