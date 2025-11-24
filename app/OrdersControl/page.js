@@ -89,7 +89,7 @@ function OrdersControls() {
     <>
       <div className="OrdersControls">
         <h2 style={{ marginTop: "20px", textAlign: "center" }}>Orders List</h2>
-
+        <div className="table-wrapper">
         <table style={{ width: "100%", textAlign: "center" }}>
           <thead style={{ backgroundColor: "blanchedalmond", fontSize: "18px" }}>
             <tr>
@@ -175,6 +175,8 @@ function OrdersControls() {
             )}
           </tbody>
         </table>
+        </div>
+        
       </div>
     </>
   );

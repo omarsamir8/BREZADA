@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import News from "@/models/News";
 import { connectDB } from "@/lib/mongodb";
 import { verifyAdmin } from "@/lib/authMiddleware";
-import fs from "fs";
-import path from "path";
+import cloudinary from "@/lib/cloudinary";
 
 // 🟢 Create News
 export const POST = async (req) => {
   await connectDB();
+
   const check = await verifyAdmin(req);
   if (check instanceof NextResponse) return check;
 
@@ -15,35 +15,53 @@ export const POST = async (req) => {
 
   const author = data.get("author");
   const description = data.get("description");
-  const imageFile = data.get("image"); // Blob
+  const imageFile = data.get("image");
 
-  let imagePath = "";
+  let imageUrl = "";
+
+  // لو فيه صورة مرفوعة
   if (imageFile && imageFile.size > 0) {
-    const uploadDir = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+    // 1) حوّل الصورة buffer
+    const bytes = await imageFile.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-    const fileName = `${Date.now()}-${imageFile.name}`;
-    const filePath = path.join(uploadDir, fileName);
+    // 2) ارفع على Cloudinary
+    const upload = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "news", // folder for news images
+          },
+          (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+          }
+        )
+        .end(buffer);
+    });
 
-    const arrayBuffer = await imageFile.arrayBuffer();
-    fs.writeFileSync(filePath, Buffer.from(arrayBuffer));
-    imagePath = `/uploads/${fileName}`;
+    imageUrl = upload.secure_url;
   }
 
+  // 3) حفظ الخبر في قاعدة البيانات
   const newNews = await News.create({
     author,
     description,
-    image: imagePath,
+    image: imageUrl,
   });
 
-  return NextResponse.json({ message: "News created", news: newNews }, { status: 201 });
+  return NextResponse.json(
+    { message: "News created", news: newNews },
+    { status: 201 }
+  );
 };
 
 // 🟡 Get all news
 export async function GET() {
   await connectDB();
+
   try {
-    const news = await News.find();
+    const news = await News.find().sort({ createdAt: -1 });
     return NextResponse.json({ news });
   } catch (error) {
     return NextResponse.json({ message: error.message }, { status: 500 });

@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../ProductControl/productcontrol.css";
 import Swal from "sweetalert2";
+import '../ProductControl/productcontrol.css'
 
 export default function NewsPage() {
   const [formData, setFormData] = useState({
@@ -161,8 +162,8 @@ export default function NewsPage() {
       </form>
 
       <h2 style={{ marginTop: "20px" }}>News List</h2>
-
-      <table>
+      <div className="table-wrapper">
+          <table>
         <thead style={{ backgroundColor: "blanchedalmond", fontSize: "18px" }}>
           <tr>
             <th className="border p-2">Image</th>
@@ -213,6 +214,8 @@ export default function NewsPage() {
           )}
         </tbody>
       </table>
+      </div>
+      
     </div>
   );
 }

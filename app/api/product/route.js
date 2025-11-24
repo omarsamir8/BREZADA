@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import Product from "@/models/Product";
 import { connectDB } from "@/lib/mongodb";
 import { verifyAdmin } from "@/lib/authMiddleware";
-import fs from "fs";
-import path from "path";
+import cloudinary from "@/lib/cloudinary";
 
 // 🟢 Create product
 export const POST = async (req) => {
   await connectDB();
+
   const check = await verifyAdmin(req);
   if (check instanceof NextResponse) return check;
 
@@ -16,22 +16,37 @@ export const POST = async (req) => {
   const name = data.get("name");
   const description = data.get("description");
   const price = Number(data.get("price"));
-  const priceBeforeSale = data.get("priceBeforeSale") ? Number(data.get("priceBeforeSale")) : undefined;
+  const priceBeforeSale = data.get("priceBeforeSale")
+    ? Number(data.get("priceBeforeSale"))
+    : undefined;
   const brand = data.get("brand");
   const category = data.get("category");
-  const imageFile = data.get("image"); // Blob
 
-  let imagePath = "";
+  const imageFile = data.get("image");
+
+  let imageUrl = "";
+
   if (imageFile && imageFile.size > 0) {
-    const uploadDir = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+    // Convert image → buffer
+    const bytes = await imageFile.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-    const fileName = `${Date.now()}-${imageFile.name}`;
-    const filePath = path.join(uploadDir, fileName);
+    // Upload to Cloudinary
+    const upload = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "products", // dynamic folder path
+          },
+          (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+          }
+        )
+        .end(buffer);
+    });
 
-    const arrayBuffer = await imageFile.arrayBuffer();
-    fs.writeFileSync(filePath, Buffer.from(arrayBuffer));
-    imagePath = `/uploads/${fileName}`;
+    imageUrl = upload.secure_url;
   }
 
   const newProduct = await Product.create({
@@ -41,10 +56,13 @@ export const POST = async (req) => {
     priceBeforeSale,
     brand,
     category,
-    image: imagePath,
+    image: imageUrl,
   });
 
-  return NextResponse.json({ message: "Product created", product: newProduct }, { status: 201 });
+  return NextResponse.json(
+    { message: "Product created", product: newProduct },
+    { status: 201 }
+  );
 };
 
 // 🟡 Get all products
@@ -54,30 +72,9 @@ export async function GET() {
     const products = await Product.find();
     return NextResponse.json(products);
   } catch (error) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json(
+      { message: error.message },
+      { status: 500 }
+    );
   }
-}
-
-// 🟢 Get single, Update, Delete
-export async function PUT(req, { params }) {
-  await connectDB();
-  const check = await verifyAdmin(req);
-  if (check instanceof NextResponse) return check;
-
-  const data = await req.json();
-  const updated = await Product.findByIdAndUpdate(params.id, data, { new: true, runValidators: true });
-  if (!updated) return NextResponse.json({ message: "Product not found" }, { status: 404 });
-
-  return NextResponse.json({ message: "Updated successfully", product: updated });
-}
-
-export async function DELETE(req, { params }) {
-  await connectDB();
-  const check = await verifyAdmin(req);
-  if (check instanceof NextResponse) return check;
-
-  const deleted = await Product.findByIdAndDelete(params.id);
-  if (!deleted) return NextResponse.json({ message: "Product not found" }, { status: 404 });
-
-  return NextResponse.json({ message: "Deleted successfully" });
 }

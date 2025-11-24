@@ -53,3 +53,29 @@
 .productform table button:hover{
     background-color: black;
 }
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table img {
+  max-width: 120px;
+  height: auto;
+}
+
+@media (max-width: 450px) {
+  table th, table td {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  table img {
+    max-width: 80px;
+  }
+  .productform form select{
+    width: 100%;
+  }
+  .productform form input{
+    width: 100%;
+  }
+}

@@ -2,67 +2,113 @@ import { NextResponse } from "next/server";
 import News from "@/models/News";
 import { connectDB } from "@/lib/mongodb";
 import { verifyAdmin } from "@/lib/authMiddleware";
-import fs from "fs";
-import path from "path";
+import cloudinary from "@/lib/cloudinary";
 
-// 🟢 تعديل خبر (PUT)
+// 🟢 Update News (PUT)
 export async function PUT(req, context) {
   await connectDB();
-  const { params } = context;
-  const { id: newsId } = await params; // ✅ فك الـ params
+  const { id: newsId } = await context.params;
 
   const check = await verifyAdmin(req);
   if (check instanceof NextResponse) return check;
 
-  // دعم multipart/form-data
-  const data = await req.formData();
-  const author = data.get("author");
-  const description = data.get("description");
-  const imageFile = data.get("image");
+  const contentType = req.headers.get("content-type");
 
-  const updateData = { author, description };
+  // لو الفورم فيها صورة (multipart/form-data)
+  if (contentType.includes("multipart/form-data")) {
+    const data = await req.formData();
+    const author = data.get("author");
+    const description = data.get("description");
+    const imageFile = data.get("image");
 
-  if (imageFile && imageFile.size > 0) {
-    const uploadDir = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+    // هات الخبر القديم
+    const oldNews = await News.findById(newsId);
+    if (!oldNews)
+      return NextResponse.json({ message: "News not found" }, { status: 404 });
 
-    const fileName = `${Date.now()}-${imageFile.name}`;
-    const filePath = path.join(uploadDir, fileName);
+    let imageUrl = oldNews.image;
 
-    const arrayBuffer = await imageFile.arrayBuffer();
-    fs.writeFileSync(filePath, Buffer.from(arrayBuffer));
-    updateData.image = `/uploads/${fileName}`;
+    // لو فيه صورة جديدة
+    if (imageFile && imageFile.size > 0) {
+      // 1) احذف القديمة من Cloudinary
+      if (oldNews.image) {
+        const publicId = oldNews.image.split("/").pop().split(".")[0];
+        await cloudinary.uploader.destroy("news/" + publicId);
+      }
+
+      // 2) ارفع الجديدة
+      const bytes = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const upload = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: "news" },
+          (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+          }
+        ).end(buffer);
+      });
+
+      imageUrl = upload.secure_url;
+    }
+
+    const updated = await News.findByIdAndUpdate(
+      newsId,
+      { author, description, image: imageUrl },
+      { new: true }
+    );
+
+    return NextResponse.json({
+      message: "Updated successfully",
+      news: updated,
+    });
   }
 
-  const updated = await News.findByIdAndUpdate(newsId, updateData, { new: true, runValidators: true });
-  if (!updated) return NextResponse.json({ message: "News not found" }, { status: 404 });
+  // لو JSON بدون صورة
+  const body = await req.json();
+  const updated = await News.findByIdAndUpdate(newsId, body, { new: true });
 
-  return NextResponse.json({ message: "Updated successfully", news: updated });
+  if (!updated)
+    return NextResponse.json({ message: "News not found" }, { status: 404 });
+
+  return NextResponse.json({
+    message: "Updated successfully",
+    news: updated,
+  });
 }
 
-// 🟢 مسح خبر (DELETE)
+// 🟢 Delete News (DELETE)
 export async function DELETE(req, context) {
   await connectDB();
-  const { params } = context;
-  const { id: newsId } = await params;
+  const { id: newsId } = await context.params;
 
   const check = await verifyAdmin(req);
   if (check instanceof NextResponse) return check;
 
-  const deleted = await News.findByIdAndDelete(newsId);
-  if (!deleted) return NextResponse.json({ message: "News not found" }, { status: 404 });
+  const news = await News.findById(newsId);
+  if (!news)
+    return NextResponse.json({ message: "News not found" }, { status: 404 });
+
+  // حذف الصورة من Cloudinary
+  if (news.image) {
+    const publicId = news.image.split("/").pop().split(".")[0];
+    await cloudinary.uploader.destroy("news/" + publicId);
+  }
+
+  await News.findByIdAndDelete(newsId);
 
   return NextResponse.json({ message: "Deleted successfully" });
 }
 
-// 🟢 عرض خبر واحد (GET)
+// 🟢 Get News by ID (GET)
 export async function GET(req, context) {
   await connectDB();
-  const { params } = context;
-  const { id: newsId } = await params;
+  const { id: newsId } = await context.params;
 
   const news = await News.findById(newsId);
-  if (!news) return NextResponse.json({ message: "News not found" }, { status: 404 });
+  if (!news)
+    return NextResponse.json({ message: "News not found" }, { status: 404 });
 
   return NextResponse.json({ news });
 }

@@ -127,7 +127,8 @@ export default function ProductsPage() {
       </form>
 
       <h2 style={{marginTop:"20px"}}>Products List</h2>
-      <table>
+      <div className="table-wrapper">
+          <table>
         <thead style={{backgroundColor:"blanchedalmond",fontSize:"18px"}}>
           <tr>
             <th className="border p-2">Image</th>
@@ -156,6 +157,7 @@ export default function ProductsPage() {
           )) : <tr><td colSpan="5" className="border p-4">No products found</td></tr>}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
