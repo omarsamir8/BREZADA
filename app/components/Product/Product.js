@@ -12,7 +12,8 @@ function Product(props){
             img: props.img,
             name: props.name,
             brand: props.brand,
-            price: props.currentPrice
+            price: props.currentPrice,
+            description: props.description,
         });
     };
 

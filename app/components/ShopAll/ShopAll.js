@@ -7,9 +7,9 @@ import axios from 'axios';
 
 function ShopAll(){
     const [products, setProducts] = useState([]);
-    const [selected, setSelected] = useState(""); // category
-    const [selectedBrand, setSelectedBrand] = useState(""); // brand
-    const [selectedPrice, setSelectedPrice] = useState(1000); // price filter
+    const [selected, setSelected] = useState(""); 
+    const [selectedBrand, setSelectedBrand] = useState(""); 
+    const [selectedPrice, setSelectedPrice] = useState(1000); 
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     const getProducts = async () => {
@@ -33,29 +33,26 @@ function ShopAll(){
     });
 
     const addToCart = (item) => {
-            let cart = localStorage.getItem("cart");
+        let cart = localStorage.getItem("cart");
 
-            if (cart) {
-                cart = JSON.parse(cart);
+        if (cart) {
+            cart = JSON.parse(cart);
+            const exist = cart.find((pro) => pro.id === item.id);
 
-                // هل المنتج موجود قبل كده؟
-                const exist = cart.find((pro) => pro.id === item.id);
-
-                if (exist) {
-                    exist.qty += 1; // زود الكمية
-                } else {
-                    cart.push({ ...item, qty: 1 }); // ضيف منتج جديد
-                }
-
-                localStorage.setItem("cart", JSON.stringify(cart));
-            } 
-            else {
-                // أول مرة يضيف منتج
-                localStorage.setItem("cart", JSON.stringify([{ ...item, qty: 1 }]));
+            if (exist) {
+                exist.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
             }
 
-            toast.success("Added to cart!");
-        };
+            localStorage.setItem("cart", JSON.stringify(cart));
+        } 
+        else {
+            localStorage.setItem("cart", JSON.stringify([{ ...item, qty: 1 }]));
+        }
+
+        toast.success("Added to cart!");
+    };
 
     return(
         <>
@@ -68,10 +65,16 @@ function ShopAll(){
             <div className='shopcontainer'>
                 <div className='filterSide'>
 
-                    {/* Category Name Display */}
+                    {/* FILTER HEADER */}
                     <div className='refineBy'>
                         <h3>Refine by</h3>
-                        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",fontWeight:"bold",marginTop:"10px"}}>
+                        <div style={{
+                            display:"flex",
+                            justifyContent:"space-between",
+                            alignItems:"center",
+                            fontWeight:"bold",
+                            marginTop:"10px"
+                        }}>
                             <h4 style={{fontWeight:"bold",cursor:"pointer"}}>
                                 {selected || selectedBrand ? `${selected} ${selectedBrand}` : "No filter applied"}
                             </h4>
@@ -88,20 +91,14 @@ function ShopAll(){
                     <div className='brand'>
                         <h3>Brand</h3>
                         <ul>
-                            {/* <li onClick={() => setSelectedBrand("Common Good")}>
-                                <input type="checkbox"/> Common Good
-                            </li> */}
                             <li>
-                            <input 
-                                type="checkbox" 
-                                checked={selectedBrand === "Brezda"}
-                                onChange={() => setSelectedBrand(selectedBrand === "Brezda" ? "" : "Brezda")}
-                            />
-                            Brezda
+                                <input 
+                                    type="checkbox" 
+                                    checked={selectedBrand === "Brezda"}
+                                    onChange={() => setSelectedBrand(selectedBrand === "Brezda" ? "" : "Brezda")}
+                                />
+                                Brezda
                             </li>
-                            {/* <li onClick={() => setSelectedBrand("EL Fursan")}>
-                                <input type="checkbox"/> EL Fursan
-                            </li> */}
                         </ul>
                     </div>
 
@@ -110,48 +107,44 @@ function ShopAll(){
                         <h3>Category</h3>
                         <ul>
                             <li>
-                            <input 
-                                type="checkbox" 
-                                checked={selected === "Beauty Products"}
-                                onChange={() => setSelected(selected === "Beauty Products" ? "" : "Beauty Products")}
-                            />
-                            Beauty Products
+                                <input 
+                                    type="checkbox" 
+                                    checked={selected === "Beauty Products"}
+                                    onChange={() => setSelected(selected === "Beauty Products" ? "" : "Beauty Products")}
+                                />
+                                Beauty Products
                             </li>
 
                             <li>
-                            <input 
-                                type="checkbox" 
-                                checked={selected === "Natural Drinks"}
-                                onChange={() => setSelected(selected === "Natural Drinks" ? "" : "Natural Drinks")}
-                            />
-                            Natural Drinks
+                                <input 
+                                    type="checkbox" 
+                                    checked={selected === "Natural Drinks"}
+                                    onChange={() => setSelected(selected === "Natural Drinks" ? "" : "Natural Drinks")}
+                                />
+                                Natural Drinks
                             </li>
 
                             <li>
-                            <input 
-                                type="checkbox" 
-                                checked={selected === "Natural oils"}
-                                onChange={() => setSelected(selected === "Natural oils" ? "" : "Natural oils")}
-                            />
-                            Natural Oils
-                            </li>                        
+                                <input 
+                                    type="checkbox" 
+                                    checked={selected === "Natural oils"}
+                                    onChange={() => setSelected(selected === "Natural oils" ? "" : "Natural oils")}
+                                />
+                                Natural Oils
+                            </li>
+
                             <li>
-                            <input 
-                                type="checkbox" 
-                                checked={selected === "Honey"}
-                                onChange={() => setSelected(selected === "Honey" ? "" : "Honey")}
-                            />
-                            Honey
-                            </li>                        
-                            {/* <li onClick={() => setSelected("Spices Products")}>
-                                <input type="checkbox"/> Spices Products
-                            </li> */}              
+                                <input 
+                                    type="checkbox" 
+                                    checked={selected === "Honey"}
+                                    onChange={() => setSelected(selected === "Honey" ? "" : "Honey")}
+                                />
+                                Honey
+                            </li>
+
                             <li onClick={() => setSelected("FeaturedProducts")}>
                                 <input type="checkbox"/> Featured Products
-                            </li>              
-                            {/* <li onClick={() => setSelected("Snacks & Nuts")}>
-                                <input type="checkbox"/> Snacks & Nuts
-                            </li> */}
+                            </li>
                         </ul>
                     </div>
 
@@ -179,7 +172,7 @@ function ShopAll(){
                 </div>
 
                 {/* Products List */}
-                <div className='prductsSide' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div className='prductsSide'>
                     {filteredProducts.map((pro, index) => (
                         <Product
                             key={index}
@@ -190,27 +183,44 @@ function ShopAll(){
                             currentPrice={pro.price}
                             name={pro.name}
                             brand={pro.brand}
+                            description={pro.description}
                             addToCart={addToCart}
                             onSelect={(product) => setSelectedProduct(product)}
                         />
-
                     ))}
                 </div>
             </div>
-            <div className="modal-body">
-                {selectedProduct ? (
-                    <div style={{
+
+            {/* ===================== */}
+            {/* MODAL WITH CLOSE BUTTON */}
+            {/* ===================== */}
+
+            {selectedProduct && (
+                <div style={{
+                    position:"absolute",
+                    width:"100%",                    
+                }} className="modal-body">
+
+                    {/* زر الإغلاق */}
+                    <button 
+                        className="close-modal-btn" 
+                        onClick={() => setSelectedProduct(null)}
+                    >
+                        ×
+                    </button>
+
+                    <div className='model' style={{
                         display: "flex",
-                        flexDirection: "column",
+                        flexDirection: "row",
                         gap: "15px",
+                        height:"92vh"
                     }}>
 
                         {/* صورة المنتج */}
                         <img 
-                            src={selectedProduct.image} 
+                            src={selectedProduct.img} 
                             alt=""
                             style={{
-                                width: "100%",
                                 borderRadius: "12px",
                                 objectFit: "cover",
                                 maxHeight: "280px",
@@ -218,69 +228,66 @@ function ShopAll(){
                             }}
                         />
 
-                        {/* الاسم */}
-                        <h2 style={{
-                            fontSize: "22px",
-                            fontWeight: "bold",
-                            margin: 0
+                        <div className='m-content'  style={{
+                            padding:"20px",
+                            display:"flex",
+                            flexDirection:"column",
+                            gap:"20px"
                         }}>
-                            {selectedProduct.name}
-                        </h2>
+                            <h2 style={{fontSize:"22px",fontWeight:"bold",margin:0}}>
+                                {selectedProduct.name}
+                            </h2>
 
-                        {/* البراند */}
-                        <h4 style={{
-                            fontSize: "16px",
-                            color: "#777",
-                            margin: 0
-                        }}>
-                            Brand: 
-                            <span style={{color: "#000", fontWeight: "bold"}}> {selectedProduct.brand}</span>
-                        </h4>
+                            <h4 style={{fontSize:"16px",color:"#777",margin:0}}>
+                                Brand: 
+                                <span style={{color:"#000",fontWeight:"bold"}}> {selectedProduct.brand}</span>
+                            </h4>
 
-                        {/* السعر */}
-                        <div style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "10px"
-                        }}>
-                            <h3 style={{
-                                margin: 0,
-                                fontWeight: "bold",
-                                color: "#28a745"
-                            }}>
-                                ${selectedProduct.price}
-                            </h3>
+                            <h4 style={{fontSize:"16px",color:"#000",fontWeight:"bold"}}>
+                                {selectedProduct.description}
+                            </h4>
 
-                            {selectedProduct.priceBeforeSale && (
-                                <p style={{
-                                    textDecoration: "line-through",
-                                    color: "red",
-                                    margin: 0,
-                                    fontSize: "14px"
-                                }}>
-                                    ${selectedProduct.priceBeforeSale}
-                                </p>
-                            )}
+                            <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
+                                <h3 style={{margin:0,fontWeight:"bold",color:"#28a745"}}>
+                                    L£{selectedProduct.currentPrice}
+                                </h3>
+
+                                {selectedProduct.olPrice && (
+                                    <p style={{
+                                        textDecoration:"line-through",
+                                        color:"red",
+                                        margin:0,
+                                        fontSize:"14px"
+                                    }}>
+                                        L£{selectedProduct.olPrice}
+                                    </p>
+                                )}
+                            </div>
+
+                            <button 
+                                style={{
+                                    padding:"10px",
+                                    border:"none",
+                                    outline:"none",
+                                    borderRadius:"10px",
+                                    backgroundColor:"#4b8106",
+                                    color:"#fff",
+                                    cursor:"pointer"
+                                }}
+                                onClick={() => addToCart(selectedProduct)}
+                            >
+                                <i className="fa-solid fa-cart-shopping"></i> Add To Cart
+                            </button>
+
                         </div>
 
-                        {/* الوصف */}
-                        <p style={{
-                            fontSize: "15px",
-                            lineHeight: "1.6",
-                            color: "#444",
-                            marginTop: "5px"
-                        }}>
-                            {selectedProduct.description}
-                        </p>
-
                     </div>
-                ) : (
-                    <p style={{fontWeight:"bold"}}>No product selected</p>
-                )}
-            </div>
+                </div>
+            )}
 
         </div>
         </>
     )
 }
+
 export default ShopAll;

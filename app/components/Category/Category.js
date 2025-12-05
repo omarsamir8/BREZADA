@@ -11,10 +11,10 @@ function Category(){
                 <img style={{borderRadius:"50%"}} src='./Assets/cat-1.jpg' alt='CategoryImg' width={200} height={200}/>
                 <h2>Beauty Products</h2>
             </div>
-            <div onClick={()=>{router.push('/Categories')}} className='category'>
+            {/* <div onClick={()=>{router.push('/Categories')}} className='category'>
                 <img style={{borderRadius:"50%"}} src='./Assets/cat-2.jpg' alt='CategoryImg' width={200} height={200}/>
                 <h2>Spices Products</h2>
-            </div>
+            </div> */}
             <div onClick={()=>{router.push('/Categories')}} className='category'>
                 <img style={{borderRadius:"50%"}} src='./Assets/cat-3.jpg' alt='CategoryImg' width={200} height={200}/>
                 <h2>Natural oils</h2>
@@ -23,10 +23,10 @@ function Category(){
                 <img style={{borderRadius:"50%"}} src='./Assets/cat-4.jpg' alt='CategoryImg' width={200} height={200}/>
                 <h2>Natural Drinks</h2>
             </div>
-            <div onClick={()=>{router.push('/Categories')}} className='category'>
+            {/* <div onClick={()=>{router.push('/Categories')}} className='category'>
                 <img style={{borderRadius:"50%"}} src='./Assets/cat-5.jpg' alt='CategoryImg' width={200} height={200}/>
                 <h2>Snacks & Nuts</h2>
-            </div> 
+            </div>  */}
         </div>
         </>
     )
