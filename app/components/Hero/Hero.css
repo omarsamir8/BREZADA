@@ -1,5 +1,5 @@
 .Hero{
-    background-image: url('../../../public/Assets/slider-2.jpg');
+    background-image: url('../../../public/Assets/bueaty.jpg');
     background-position: 100%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,8 +18,9 @@
     font-family: Cairo, Arial, Helvetica, sans-serif;
 }
 .Hero p{
-    color: gray;
+    color: rgb(27, 27, 27);
     width: 50%;
+    font-family: 'Times New Roman', Times, serif;
 }
 .Hero button{
     padding: 10px 30px;

@@ -8,7 +8,7 @@ function Hero(){
         <div className="Hero">
             <div>
                 <h2>Organic Spices and Beverages For Your Health</h2>
-                <p>Organic Fresh offers unique organic spices and beverages, 100% natural, adding a healthy and distinctive flavor to every meal and drink. We also provide high-quality packaged products for your convenience.</p>
+                <p>Brezada offers unique natural beauty and skincare products, 100% organic and ethically sourced, enhancing your natural glow. We also provide high-quality, ready-to-use products for your convenience and wellness..</p>
                 <button onClick={()=>{router.push("/Shop")}}>Shop Now</button>
             </div>
             
