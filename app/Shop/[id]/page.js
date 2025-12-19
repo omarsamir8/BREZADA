@@ -2,6 +2,7 @@
 import '../../components/ShopAll/ShopAll.css'
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Image from 'next/image';
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -9,7 +10,6 @@ function SinglePage() {
     const params = useParams();
     const { id } = params;
 
-    // ✅ استخدام initializer لتجنب setState داخل useEffect مباشرة
     const [selectedProduct, setSelectedProduct] = useState(() => null);
 
     // جلب بيانات المنتج
@@ -23,37 +23,49 @@ function SinglePage() {
     };
 
     useEffect(() => {
-        if (id) getProducts(); // نتأكد أن id موجود
+        if (id) getProducts();
     }, [id]);
 
     if (!selectedProduct) return <p style={{textAlign:"center", marginTop:"50px"}}>Loading...</p>;
-    console.log(selectedProduct)
 
-    // add to cart
-     const addToCart = (item) => {
+    // add to cart مع تحويل image → img نهائيًا
+    const handleAddToCart = () => {
+        if (!selectedProduct) return;
+
+        // نفصل image وننشئ مفتاح img
+        const { image, ...rest } = selectedProduct;
+        const itemToCart = {
+            ...rest,
+            img: image, // ✅ المفتاح الصحيح
+        };
+
+        addToCart(itemToCart);
+    };
+
+    const addToCart = (item) => {
         let cart = localStorage.getItem("cart");
 
         if (cart) {
             cart = JSON.parse(cart);
-            const exist = cart.find((pro) => pro.id === item.id);
+            const exist = cart.find((pro) => pro._id === item._id);
 
             if (exist) {
                 exist.qty += 1;
             } else {
-                cart.push({ ...item, qty: 1 });
+                cart.push({ ...item, qty: 1 }); // ✅ هنا لن يكون image موجود
             }
 
             localStorage.setItem("cart", JSON.stringify(cart));
         } 
         else {
-            localStorage.setItem("cart", JSON.stringify([{ ...item, qty: 1 }]));
+            localStorage.setItem("cart", JSON.stringify([{ ...item, qty: 1 }])); 
         }
 
         toast.success("Added to cart!");
     };
+
     return (
         <div style={{ width: "100%", height: "100%" }} className="modal-body">
-            {/* زر الإغلاق */}
             <button
                 className="close-modal-btn"
                 onClick={() => setSelectedProduct(null)}
@@ -68,7 +80,6 @@ function SinglePage() {
                 height: "92vh",
                 position: "relative"
             }}>
-                {/* صورة المنتج باستخدام next/image */}
                 <img
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
@@ -126,7 +137,7 @@ function SinglePage() {
                             color: "#fff",
                             cursor: "pointer"
                         }}
-                        onClick={() => addToCart(selectedProduct)}
+                        onClick={handleAddToCart} // ✅ استخدام handleAddToCart
                     >
                         <i className="fa-solid fa-cart-shopping"></i> Add To Cart
                     </button>
