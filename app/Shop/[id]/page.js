@@ -2,14 +2,13 @@
 import '../../components/ShopAll/ShopAll.css'
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Image from 'next/image';
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { useRouter } from "next/navigation";
 function SinglePage() {
     const params = useParams();
     const { id } = params;
-
+    const router = useRouter();
     const [selectedProduct, setSelectedProduct] = useState(() => null);
 
     // جلب بيانات المنتج
@@ -68,7 +67,7 @@ function SinglePage() {
         <div style={{ width: "100%", height: "100%" }} className="modal-body">
             <button
                 className="close-modal-btn"
-                onClick={() => setSelectedProduct(null)}
+                onClick={() => router.push("/Shop")}
             >
                 ×
             </button>
