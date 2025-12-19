@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './productcontrol.css'
 export default function ProductsPage() {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
@@ -14,11 +14,14 @@ export default function ProductsPage() {
     category: "",
     image: null,
   });
+
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
 
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
+  // 🔵 Get products
   const getProducts = async () => {
     try {
       const res = await axios.get("/api/product");
@@ -28,30 +31,53 @@ export default function ProductsPage() {
     }
   };
 
-  useEffect(() => { getProducts(); }, []);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
+  // 🟢 Submit (Add / Update)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!token) return toast.error("Please login as admin first");
 
     const data = new FormData();
-    for (let key in formData) {
-      if (formData[key] !== null) data.append(key, formData[key]);
-    }
+
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== null && value !== "") {
+        data.append(key, value);
+      }
+    });
 
     try {
       if (editingProduct) {
-        await axios.put(`/api/product/${editingProduct._id}`, Object.fromEntries(data), {
-          headers: { Authorization: `Bearer ${token}` },
+        // ✅ UPDATE (IMPORTANT: send FormData directly)
+        await axios.put(`/api/product/${editingProduct._id}`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         });
         toast.success("✅ Product updated successfully");
       } else {
+        // ✅ CREATE
         await axios.post("/api/product", data, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         });
         toast.success("✅ Product added successfully");
       }
-      setFormData({ name: "", description: "", price: "", priceBeforeSale: "", brand: "", category: "", image: null });
+
+      setFormData({
+        name: "",
+        description: "",
+        price: "",
+        priceBeforeSale: "",
+        brand: "",
+        category: "",
+        image: null,
+      });
       setEditingProduct(null);
       getProducts();
     } catch (err) {
@@ -59,11 +85,15 @@ export default function ProductsPage() {
     }
   };
 
+  // 🔴 Delete
   const handleDelete = async (id) => {
     if (!token) return toast.error("Please login as admin first");
     if (!confirm("Are you sure you want to delete this product?")) return;
+
     try {
-      await axios.delete(`/api/product/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.delete(`/api/product/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       toast.success("🗑️ Product deleted");
       getProducts();
     } catch (err) {
@@ -71,6 +101,7 @@ export default function ProductsPage() {
     }
   };
 
+  // 🟡 Edit
   const handleEdit = (product) => {
     setEditingProduct(product);
     setFormData({
@@ -80,7 +111,7 @@ export default function ProductsPage() {
       priceBeforeSale: product.priceBeforeSale || "",
       brand: product.brand,
       category: product.category,
-      image: null,
+      image: null, // ❗ لا نرسل صورة إلا لو المستخدم اختار واحدة جديدة
     });
   };
 
