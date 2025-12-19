@@ -1,9 +1,10 @@
+'use client'
 import './Product.css';
 import { FaStar } from 'react-icons/fa';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
+import { useRouter } from "next/navigation";
 function Product(props){
-
+    const router = useRouter();
     // منع فتح المودل عند الضغط على زر Add To Cart
     const handleAddToCart = (e) => {
         e.stopPropagation();
@@ -20,7 +21,7 @@ function Product(props){
     return(
         <>
         {/* اضغط على الكارد → يعرض التفاصيل في المودل */}
-        <div className="product" onClick={() => props.onSelect(props)}>
+        <div className="product" onClick={() =>router.push(`/Shop/${props.id}`)}>
 
             <img src={props.img} alt="" />
             <p>{props.brand}</p>

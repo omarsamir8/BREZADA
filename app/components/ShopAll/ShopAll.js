@@ -185,106 +185,12 @@ function ShopAll(){
                             brand={pro.brand}
                             description={pro.description}
                             addToCart={addToCart}
-                            onSelect={(product) => setSelectedProduct(product)}
+                            // onSelect={(product) => setSelectedProduct(product)}
+                            
                         />
                     ))}
                 </div>
             </div>
-
-            {/* ===================== */}
-            {/* MODAL WITH CLOSE BUTTON */}
-            {/* ===================== */}
-
-            {selectedProduct && (
-                <div style={{
-                    position:"absolute",
-                    width:"100%",                    
-                }} className="modal-body">
-
-                    {/* زر الإغلاق */}
-                    <button 
-                        className="close-modal-btn" 
-                        onClick={() => setSelectedProduct(null)}
-                    >
-                        ×
-                    </button>
-
-                    <div className='model' style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "15px",
-                        height:"92vh"
-                    }}>
-
-                        {/* صورة المنتج */}
-                        <img 
-                            src={selectedProduct.img} 
-                            alt=""
-                            style={{
-                                borderRadius: "12px",
-                                objectFit: "cover",
-                                maxHeight: "280px",
-                                boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
-                            }}
-                        />
-
-                        <div className='m-content'  style={{
-                            padding:"20px",
-                            display:"flex",
-                            flexDirection:"column",
-                            gap:"20px"
-                        }}>
-                            <h2 style={{fontSize:"22px",fontWeight:"bold",margin:0}}>
-                                {selectedProduct.name}
-                            </h2>
-
-                            <h4 style={{fontSize:"16px",color:"#777",margin:0}}>
-                                Brand: 
-                                <span style={{color:"#000",fontWeight:"bold"}}> {selectedProduct.brand}</span>
-                            </h4>
-
-                            <h4 style={{fontSize:"16px",color:"#000",fontWeight:"bold"}}>
-                                {selectedProduct.description}
-                            </h4>
-
-                            <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
-                                <h3 style={{margin:0,fontWeight:"bold",color:"#28a745"}}>
-                                    L£{selectedProduct.currentPrice}
-                                </h3>
-
-                                {selectedProduct.olPrice && (
-                                    <p style={{
-                                        textDecoration:"line-through",
-                                        color:"red",
-                                        margin:0,
-                                        fontSize:"14px"
-                                    }}>
-                                        L£{selectedProduct.olPrice}
-                                    </p>
-                                )}
-                            </div>
-
-                            <button 
-                                style={{
-                                    padding:"10px",
-                                    border:"none",
-                                    outline:"none",
-                                    borderRadius:"10px",
-                                    backgroundColor:"#4b8106",
-                                    color:"#fff",
-                                    cursor:"pointer"
-                                }}
-                                onClick={() => addToCart(selectedProduct)}
-                            >
-                                <i className="fa-solid fa-cart-shopping"></i> Add To Cart
-                            </button>
-
-                        </div>
-
-                    </div>
-                </div>
-            )}
-
         </div>
         </>
     )

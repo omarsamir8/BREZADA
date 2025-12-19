@@ -141,20 +141,21 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: absolute;
-    z-index: 10;
     background-color: white;
+    padding: 20px 5%;
 }
 .model img{
     width: 50%;
+    height: 70vh;
 }
 .m-content{
     width: 50%;
+    position: relative !important;
 }
 .close-modal-btn {
   position: absolute;
-  top: -20px;
-  right: -20px;
+  top: 20px;
+  right: 20px;
   width: 40px;
   height: 40px;
   background: white;
@@ -186,6 +187,7 @@
     }
     .model{
         flex-direction: column !important;
+        height: auto !important;
     }
     .model img{
         width: 100%;
