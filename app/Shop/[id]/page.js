@@ -2,7 +2,6 @@
 import '../../components/ShopAll/ShopAll.css'
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Image from 'next/image';
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -28,7 +27,30 @@ function SinglePage() {
     }, [id]);
 
     if (!selectedProduct) return <p style={{textAlign:"center", marginTop:"50px"}}>Loading...</p>;
+    console.log(selectedProduct)
 
+    // add to cart
+     const addToCart = (item) => {
+        let cart = localStorage.getItem("cart");
+
+        if (cart) {
+            cart = JSON.parse(cart);
+            const exist = cart.find((pro) => pro.id === item.id);
+
+            if (exist) {
+                exist.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+        } 
+        else {
+            localStorage.setItem("cart", JSON.stringify([{ ...item, qty: 1 }]));
+        }
+
+        toast.success("Added to cart!");
+    };
     return (
         <div style={{ width: "100%", height: "100%" }} className="modal-body">
             {/* زر الإغلاق */}
@@ -47,7 +69,7 @@ function SinglePage() {
                 position: "relative"
             }}>
                 {/* صورة المنتج باستخدام next/image */}
-                <Image
+                <img
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
                     width={400}
@@ -81,14 +103,15 @@ function SinglePage() {
                         <h3 style={{ margin: 0, fontWeight: "bold", color: "#28a745" }}>
                             L£{selectedProduct.price}
                         </h3>
-                        {selectedProduct.olPrice && (
+                        {selectedProduct.priceBeforeSale && (
                             <p style={{
                                 textDecoration: "line-through",
                                 color: "red",
                                 margin: 0,
-                                fontSize: "14px"
+                                fontSize: "14px",
+                                display:"block"
                             }}>
-                                L£{selectedProduct.olPrice}
+                                L£{selectedProduct.priceBeforeSale}
                             </p>
                         )}
                     </div>
