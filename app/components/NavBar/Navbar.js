@@ -71,7 +71,6 @@ function Navbar() {
           <li onClick={() => {router.push("/Blogs");}}>Blogs</li>
           <li onClick={() => {router.push("/BrezadaNews");}}>News</li>
         </ul>
-
         <div className="nav-buttons" style={{ position: "relative" }}>
           {/* 🔍 زر البحث */}
           <button

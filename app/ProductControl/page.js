@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './productcontrol.css'
 export default function ProductsPage() {
+const [searchTerm, setSearchTerm] = useState(""); // 🔍 SEARCH
 const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -115,6 +116,15 @@ const [formData, setFormData] = useState({
     });
   };
 
+    // 🔍 FILTER PRODUCTS (SEARCH)
+  const filteredProducts = products.filter((p) => {
+    return (
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.brand?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.category?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   return (
     <div className="productform">
       <ToastContainer position="top-center" />
@@ -159,6 +169,14 @@ const [formData, setFormData] = useState({
       </form>
 
       <h2 style={{marginTop:"20px"}}>Products List</h2>
+      <div className="searchContainer">
+        <input
+          type="text"
+          placeholder="Search Here ..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div className="table-wrapper">
           <table>
         <thead style={{backgroundColor:"blanchedalmond",fontSize:"18px"}}>
@@ -173,7 +191,7 @@ const [formData, setFormData] = useState({
           </tr>
         </thead>
         <tbody style={{fontSize:"17px",color:"gray",fontWeight:"300"}}>
-          {products.length > 0 ? products.map(p => (
+          {filteredProducts.length > 0 ? filteredProducts.map(p => (
             <tr key={p._id} className="hover:bg-gray-100">
               <td className="border p-2"><img  src={p.image || "/no-image.png"} alt={p.name} className="" width={200}/></td>
               <td className="border p-2">{p.name}</td>

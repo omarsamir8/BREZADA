@@ -9,7 +9,7 @@ export default function RegisterPage() {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "admin",
+    role: "user",
   });
   const [loading, setLoading] = useState(false);
 
