@@ -9,6 +9,10 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     position: relative;
     background-color: white;
+    transition: .3s;
+}
+.product:hover{
+    transform: scale(.97);
 }
 .product img{
     width: 100%;

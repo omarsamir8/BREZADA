@@ -6,12 +6,13 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    font-family:'Times New Roman', Times, serif;
 }
 .review h2{
     text-align: center;
     font-size: 26px;
     color: black;
-    font-family:'Times New Roman', Times, serif;}
+    }
 .reviewcontent{
     padding: 20px;
     margin-top: 20px;

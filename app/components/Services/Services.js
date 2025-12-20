@@ -26,7 +26,7 @@ function Services(){
                    onSwiper={(swiper) => console.log(swiper)}
                 >
                        <SwiperSlide >
-                             <img src='./Assets/h1.png' alt='sevicesImage'/>
+                             <img  src='./Assets/h1.png' alt='sevicesImage'/>
                         </SwiperSlide>
                        <SwiperSlide >
                              <img src='./Assets/h2.png' alt='sevicesImage'/>

@@ -140,6 +140,7 @@ function ShopAll() {
                                     <input
                                         type="checkbox"
                                         checked={selected === "Beauty Products"}
+                                        name='category'
                                         onChange={() =>
                                             setSelected(selected === "Beauty Products" ? "" : "Beauty Products")
                                         }
@@ -151,6 +152,7 @@ function ShopAll() {
                                     <input
                                         type="checkbox"
                                         checked={selected === "Natural Drinks"}
+                                        name='category'
                                         onChange={() =>
                                             setSelected(selected === "Natural Drinks" ? "" : "Natural Drinks")
                                         }
@@ -162,6 +164,7 @@ function ShopAll() {
                                     <input
                                         type="checkbox"
                                         checked={selected === "Natural oils"}
+                                        name='category'
                                         onChange={() =>
                                             setSelected(selected === "Natural oils" ? "" : "Natural oils")
                                         }
@@ -172,6 +175,7 @@ function ShopAll() {
                                 <li>
                                     <input
                                         type="checkbox"
+                                        name='category'
                                         checked={selected === "Honey"}
                                         onChange={() =>
                                             setSelected(selected === "Honey" ? "" : "Honey")
@@ -181,7 +185,7 @@ function ShopAll() {
                                 </li>
 
                                 <li onClick={() => setSelected("FeaturedProducts")}>
-                                    <input type="checkbox" /> Featured Products
+                                    <input name='category' type="checkbox" /> Featured Products
                                 </li>
                             </ul>
                         </div>

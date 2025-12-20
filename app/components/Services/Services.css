@@ -8,4 +8,15 @@
 }
 .services img{
     width: 100px;
+    text-align: center;
+    margin: auto;
+}
+@media (max-width: 450px) {
+    .services img{
+        width: 50%;
+        margin: auto !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
