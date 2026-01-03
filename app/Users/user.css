@@ -1,0 +1,7 @@
+.adminPage{
+    /* background: radial-gradient(circle, #a2fc9a 0%, #ffffff 100%) !important; */
+    background-image: url('../../public/Assets/blur.png');
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 100%;
+    padding: 30px 5%;
+}

@@ -26,6 +26,8 @@ function Head(){
             <li onClick={()=>{router.push("/OrdersControl")}}>Orders Control </li>
             <div className="headline"></div>
             <li onClick={()=>{router.push("/ProductControl")}}>ProductControl </li>
+            <div className="headline"></div>
+            <li onClick={() => {router.push("/Users");}}>Users Control</li>
         </ul>
         :null}
         

@@ -73,12 +73,12 @@ function Navbar() {
         </ul>
         <div className="nav-buttons" style={{ position: "relative" }}>
           {/* 🔍 زر البحث */}
-          <button
+          {/* <button
             onClick={() => setSearchOpen(!searchOpen)}
             style={{ position: "relative" }}
           >
             <i className="fa-solid fa-magnifying-glass"></i>
-          </button>
+          </button> */}
 
           {/* 👤 تسجيل الدخول */}
           <button onClick={() => router.push("/login")}>
