@@ -93,7 +93,7 @@ export default function AdminPage() {
   };
 
   if (loading) return <p>Loading users...</p>;
-
+  console.log(users)
   return (
     <div className="adminPage">
       <h1 style={{textAlign:"center"}} className="mb-4">Welcom to Users Management Page</h1>
@@ -123,8 +123,19 @@ export default function AdminPage() {
                   <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                   <td
                     className="text-center"
-                    style={{ display: "flex", gap: "10px" ,alignItems:"center",justifyContent:"center"}}
+                    style={{ display: "flex", gap: "10px" }}
                   >
+                    <button
+                      className="btn btn-sm btn-primary"
+                      onClick={() =>
+                        updateUser(user._id, {
+                          role:user.role==="admin"?"user":"admin",
+                          role:user.role==="user"?"admin":"user",
+                        })
+                      }
+                    >
+                    {user.role==="admin"?"Make it User":"Make it admin"}
+                    </button>
                     <button
                       className="btn btn-sm btn-danger"
                       onClick={() => deleteUser(user._id, user.name)}
